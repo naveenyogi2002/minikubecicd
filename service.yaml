@@ -6,7 +6,7 @@ spec:
   selector:
     app: nodejs-app
   ports:
-    - protocol: TCP
+    - protocol: http
       port: 80
       targetPort: 3001
   type: NodePort
