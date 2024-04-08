@@ -20,7 +20,7 @@ jobs:
         run: minikube addons enable dashboard
 
       - name: Expose Minikube Dashboard Service
-        run: minikube service dashboard --namespace kube-system
+        run: minikube dashboard
 
       - name: Configure Docker CLI
         env:
