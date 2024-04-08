@@ -32,7 +32,7 @@ jobs:
       - name: Try the cluster
         run: kubectl get pods -A
       - name: pod logs
-        run: kubectl logs -f $(kubectl get pods -o name -l app=nodeapp)
+        run: kubectl logs nodejs-app-8499976969-tk9q7 -n kube-system
       - name: Test Service URLs
         run: |
             minikube service list
