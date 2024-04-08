@@ -1,8 +1,9 @@
-apiVersion: apps/v1
+---
 kind: Deployment
+apiVersion: apps/v1
 metadata:
   name: nodejs-app
-  namaspace: default
+  namespace: default   # Corrected field name
   labels:
     app: nodejs-app
 spec:
@@ -25,7 +26,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: nodejs-app
-  namaspace: default
+  namespace: default   # Corrected field name
 spec:
   selector:
     app: nodejs-app
