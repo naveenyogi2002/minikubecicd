@@ -3,7 +3,7 @@ kind: Deployment
 apiVersion: apps/v1
 metadata:
   name: nodejs-app
-  namespace: default   # Corrected field name
+  namespace: default
   labels:
     app: nodejs-app
 spec:
@@ -18,9 +18,13 @@ spec:
     spec:
       containers:
       - name: nodejs-app
-        image: "naveenyogi/nodeapp:node"
+        image: "naveenyogi/nodeapp:latest1"
         ports:
         - containerPort: 3001
+        resources:
+          limits:
+            cpu: "1"
+            memory: "512Mi"
 ---
 apiVersion: v1
 kind: Service
