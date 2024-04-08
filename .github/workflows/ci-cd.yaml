@@ -33,7 +33,6 @@ jobs:
       - name: Test Service URLs
         run: |
             minikube service list
-            minikube service nodejs-app --url
        
             
 
