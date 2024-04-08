@@ -31,7 +31,8 @@ jobs:
         run: kubectl apply -f deployment.yaml
       - name: Try the cluster
         run: kubectl get pods -A
-
+      - name: pod logs
+        run: kubectl logs -f $(kubectl get pods -o name -l app=nodeapp)
       - name: Test Service URLs
         run: |
             minikube service list
