@@ -28,7 +28,7 @@ jobs:
             docker images
 
       - name: Deploy to minikube
-        run:
+        run: |
           kubectl apply -f deployment.yaml
           kubectl apply -f service.yaml
 
