@@ -28,14 +28,12 @@ jobs:
             docker images
 
       - name: Deploy to minikube
-        run: |
-          kubectl apply -f deployment.yaml
-          kubectl apply -f service.yaml
+        run: kubectl apply -f deployment.yaml
 
       - name: Test Service URLs
         run: |
             minikube service list
-            minikube service nodejs-app1-service --url
+            minikube service nodejs-app --url
        
             
 
