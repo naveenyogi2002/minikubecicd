@@ -19,8 +19,8 @@ jobs:
       - name: Enable Minikube Dashboard Addon
         run: minikube addons enable dashboard
 
-      - name: Expose Minikube Dashboard Service
-        run: minikube dashboard
+      # - name: Expose Minikube Dashboard Service
+      #   run: minikube dashboard
 
       - name: Configure Docker CLI
         env:
