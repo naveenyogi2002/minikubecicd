@@ -42,4 +42,4 @@ jobs:
           kubectl apply -f deployment.yaml
         
       - name: service list
-        run: kubectl service list
+        run: kubectl get services
