@@ -49,7 +49,7 @@ jobs:
         run: docker push naveenyogi/nodeapp:latest1
 
       - name: Load Docker image into Minikube
-        run: minikube image load naveenyogi/nodeapp:latest1
+        run: minikube image load nodeapp:latest1
       - name: Deploy to Minikube
         run: |
           kubectl apply -f deployment.yaml
