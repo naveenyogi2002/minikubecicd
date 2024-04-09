@@ -12,15 +12,26 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
+# method:1
+      # - name: Set up Minikube
+      #   uses: medyagh/setup-minikube@master
 
-      - name: Set up Minikube
-        uses: medyagh/setup-minikube@master
-
-      - name: Enable Minikube Dashboard Addon
-        run: minikube addons enable dashboard
+      # - name: Enable Minikube Dashboard Addon
+      #   run: minikube addons enable dashboard
 
       # - name: Expose Minikube Dashboard Service
       #   run: minikube dashboard
+# method:2
+      - name: Set up kubectl
+        uses: azure/setup-kubectl@v1
+        with:
+          installKubectl: true
+
+      - name: Configure kubectl
+        run: |
+          kubectl config set-cluster minikube --server=http://localhost:4040
+          kubectl config set-context minikube --cluster=minikube
+          kubectl config use-context minikube
 
       - name: Configure Docker CLI
         env:
@@ -37,6 +48,8 @@ jobs:
       - name: Push Docker image to Docker Hub
         run: docker push naveenyogi/nodeapp:latest1
 
+      - name: Load Docker image into Minikube
+        run: minikube image load naveenyogi/nodeapp:latest1
       - name: Deploy to Minikube
         run: |
           kubectl apply -f deployment.yaml

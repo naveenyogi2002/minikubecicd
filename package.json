@@ -1,0 +1,24 @@
+{
+  "name": "minikubecicd",
+  "version": "1.0.0",
+  "description": "i love you",
+  "main": "app.js",
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/naveenyogi2002/minikubecicd.git"
+  },
+  "keywords": [
+    "i",
+    "love",
+    "you"
+  ],
+  "author": "naveenyogi",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/naveenyogi2002/minikubecicd/issues"
+  },
+  "homepage": "https://github.com/naveenyogi2002/minikubecicd#readme"
+}
