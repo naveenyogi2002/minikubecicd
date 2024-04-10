@@ -21,11 +21,9 @@ jobs:
 
       # - name: Expose Minikube Dashboard Service
       #   run: minikube dashboard
-# method:2
+# method:2  
       - name: Set up kubectl
         uses: azure/setup-kubectl@v1
-        with:
-          installKubectl: true
 
       - name: Configure kubectl
         run: |
@@ -36,7 +34,7 @@ jobs:
       - name: Configure Docker CLI
         env:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}  # Replace DOCKER_ACCESS_TOKEN with DOCKER_PASSWORD
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}  
         run: echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdin
 
       - name: Build Docker image
@@ -50,9 +48,11 @@ jobs:
 
       - name: Load Docker image into Minikube
         run: minikube image load nodeapp:latest1
+        
       - name: Deploy to Minikube
         run: |
           kubectl apply -f deployment.yaml
         
       - name: service list
         run: kubectl get services
+
