@@ -21,10 +21,6 @@ spec:
         image: "naveenyogi/nodeapp:latest1"
         ports:
         - containerPort: 3001
-        resources:
-          limits:
-            cpu: "1"
-            memory: "512Mi"
 ---
 apiVersion: v1
 kind: Service
