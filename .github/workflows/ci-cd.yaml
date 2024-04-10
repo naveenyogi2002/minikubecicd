@@ -41,7 +41,17 @@ jobs:
         run: docker run -d -p 8080:8080 naveenyogi/nodeapp:latest1
 
       - name: service list
-        run: docker ps  # or any other Docker command to list running containers
+        run: docker ps
 
-      - name: minikube ip
-        run: minikube ip
+      - name: Get Minikube IP
+        id: minikube-ip
+        run: |
+          MINIKUBE_IP=$(minikube ip)
+          if [ -z "$MINIKUBE_IP" ]; then
+            echo "::set-output name=ip::localhost"
+          else
+            echo "::set-output name=ip::$MINIKUBE_IP"
+          fi
+          
+      - name: Print Minikube IP
+        run: echo "Minikube IP is ${{ steps.minikube-ip.outputs.ip }}"
