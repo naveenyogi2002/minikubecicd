@@ -1,28 +1,47 @@
-name: Deploy to Minikube using GitHub Actions
+name: CI/CD Pipeline
 
-on: [push]
-  
+on:
+  push:
+    branches:
+      - master  # Change this to the branch you want to trigger the pipeline on
+
 jobs:
-  job1:
+  build_and_deploy:
     runs-on: ubuntu-latest
-    name: build Node.js Docker Image and deploy to minikube
+    
     steps:
-    - uses: actions/checkout@v2
-    - name: Start minikube
-      uses: medyagh/setup-minikube@master
-    - name: Try the cluster !
-      run: kubectl get pods -A
-    - name: Build image
-      run: |
-          export SHELL=/bin/bash
-          eval $(minikube -p minikube docker-env)
-          docker build -f ./Dockerfile -t naveenyogi/nodeapp:latest1 .
-          echo -n "verifying images:"
-          docker images         
-    - name: Deploy to minikube
-      run:
-        kubectl apply -f deployment.yaml
-    - name: Test service URLs
-      run: |
-          minikube service list
-          minikube service nodejs-app --url
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Set up kubectl
+        uses: azure/setup-kubectl@v1
+
+      - name: Configure kubectl
+        run: |
+          kubectl config set-cluster local --server=http://localhost:8080
+          kubectl config set-context local --cluster=local
+          kubectl config use-context local
+
+      - name: Configure Docker CLI
+        env:
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}  
+        run: echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdin
+
+      - name: Build Docker image
+        run: docker build -t nodeapp1 .
+
+      - name: Tag Docker image
+        run: docker tag nodeapp1:latest naveenyogi/nodeapp:latest1
+
+      - name: Push Docker image to Docker Hub
+        run: docker push naveenyogi/nodeapp:latest1
+
+      - name: Deploy locally using Docker
+        run: docker run -d -p 8080:3001 naveenyogi/nodeapp:latest1
+
+      - name: service list
+        run: docker ps
+
+      - name: Get Minikube IP
+        run: ip a
