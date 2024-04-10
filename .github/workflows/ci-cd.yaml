@@ -42,3 +42,6 @@ jobs:
 
       - name: service list
         run: docker ps  # or any other Docker command to list running containers
+
+      - name: minikube ip
+        run: minikube ip
